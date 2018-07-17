@@ -1,0 +1,21 @@
+<!-- Show member list -->
+<h2>Member List</h2>
+<div>
+    <label>Member name:
+        <input #firstName />
+    </label>
+    <button (click)="add(firstName.value); firstName.value=''">
+        Add
+    </button>
+</div>
+
+<ul class="memberClass">
+    <li *ngFor="let member of members">
+        <!-- <a routerLink="/detail/{{member.id}}"> -->
+            <span class="mem">{{member.id}}</span> {{member.firstName}}
+        <!-- </a> -->
+        <button class="delete" title="delete member" (click)="delete(member)">x</button>
+    </li>
+</ul>
+
+<app-member-search></app-member-search>

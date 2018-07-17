@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>JSF Exercise from Mr.Huy :)</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<h:form id="employeeForm">
+			<h1>Employee Form</h1>
+
+			<h:panelGrid columns="3">
+
+				<h:outputLabel value="Firstname:" />
+				<h:inputText id="firstName" required="true" size="20"
+					value="#{employeeBean.selectedEmployee.firstName}"
+					label="Firstname">
+					<f:validateLength for="firstName" minimum="3" maximum="20" />
+				</h:inputText>
+				<h:message for="firstName" style="color:red" />
+
+
+				<h:outputLabel value="Lastname:" />
+				<h:inputText id="lastName" required="true" size="20"
+					value="#{employeeBean.selectedEmployee.lastName}" label="Lastname"></h:inputText>
+				<h:message for="lastName" style="color:red" />
+
+				<h:outputLabel value="Gender:" />
+				<h:selectOneRadio id="gender" required="true"
+					value="#{employeeBean.selectedEmployee.gender}" label="Gender">
+					<f:selectItem itemLabel="Male" itemValue="male" />
+					<f:selectItem itemLabel="Female" itemValue="female" />
+					<f:selectItem itemLabel="Undefine" itemValue="undefine" />
+				</h:selectOneRadio>
+				<h:message for="gender" style="color:red" />
+
+				<h:outputLabel value="Email:" />
+				<h:inputText id="email" required="true" label="Email" size="20"
+					value="#{employeeBean.selectedEmployee.email}">
+					<f:validateRegex
+						pattern="[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})"></f:validateRegex>
+				</h:inputText>
+				<h:message for="email" style="color:red" />
+
+				<h:outputLabel value="Department:" />
+				<h:selectOneMenu id="department"
+					value="#{employeeBean.selectedDept.deptId}">
+					<f:selectItems value="#{employeeBean.listAllDept}" var="dept"
+						itemValue="#{dept.deptId}" itemLabel="#{dept.deptName}" />
+				</h:selectOneMenu>
+				<h:message for="department" style="color:red" />
+
+				<h:commandButton value="Add new"
+					action="#{employeeBean.addEmployee()}"
+					rendered="#{employeeBean.createEmployee}" />
+				<h:commandButton value="Update"
+					action="#{employeeBean.editEmployee()}"
+					rendered="#{employeeBean.updateEmployee}" />
+			</h:panelGrid>
+		</h:form>
+
+		<h:form>
+			<h:dataTable id="employeeData"
+				value="#{employeeBean.listAllEmployees}" var="employee">
+				<h:column>
+					<f:facet name="header">
+						<h:commandLink value="Employee ID"
+							action="#{employeeBean.sortByOrderEmployeeID()}" />
+					</f:facet>
+					#{employee.id}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Name" />
+					</f:facet>
+					#{employee.firstName}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Email" />
+					</f:facet>
+					#{employee.email}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Department" />
+					</f:facet>
+					#{employee.department.deptName}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Detele" />
+					</f:facet>
+					<h:commandLink value="Detele"
+						action="#{employeeBean.deteleEmployee(employee)}"
+						onclick="if (!confirm('really detele?')) {return false;}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Edit" />
+					</f:facet>
+					<h:commandLink value="Edit"
+						action="#{employeeBean.selectEmployeeForEdit(employee)}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,33 @@
+<!-- Show member details -->
+<div *ngIf="member">
+    <h2>{{member.firstName}} {{member.lastName}} Details</h2>
+    <div>
+        <span>Id: </span>{{member.id}}</div>
+    <div>
+        <span>First Name: </span>{{member.firstName}}</div>
+    <div>
+        <span>Last Name: </span>{{member.lastName}}</div>
+    <div>
+        <span>Gender: </span>{{member.gender}}</div>
+
+    <!-- Update member details -->
+    <div>
+        <div>
+            <label>First Name:
+                <input [(ngModel)]="member.firstName" placeholder="First Name">
+            </label>
+        </div>
+        <div>
+            <label>Last Name:
+                <input [(ngModel)]="member.lastName" placeholder="Last Name">
+            </label>
+        </div>
+        <div>
+            <label>Gender:
+                <input [(ngModel)]="member.gender" placeholder="Gender">
+            </label>
+        </div>
+    </div>
+    <button (click)="save()">Save</button>
+    <button (click)="goBack()">Go back</button>
+</div>
